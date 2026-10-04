@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Class-based dark mode: `dark:` utilities apply when <html> has the "dark" class (set by the theme toggle). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic colors. Each one points at a CSS variable that is swapped between the light (:root) and
+ * dark (.dark) palettes below, so a single class such as `bg-surface` or `text-fg-muted` works in both themes.
+ */
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-canvas: var(--theme-canvas);
+    --color-sidebar: var(--theme-sidebar);
+    --color-surface: var(--theme-surface);
+    --color-surface-hover: var(--theme-surface-hover);
+    --color-edge: var(--theme-edge);
+    --color-edge-strong: var(--theme-edge-strong);
+    --color-hover: var(--theme-hover);
+    --color-hover-strong: var(--theme-hover-strong);
+
+    --color-fg: var(--theme-fg);
+    --color-fg-soft: var(--theme-fg-soft);
+    --color-fg-muted: var(--theme-fg-muted);
+    --color-fg-subtle: var(--theme-fg-subtle);
+    --color-fg-faint: var(--theme-fg-faint);
+
+    --color-accent: var(--theme-accent);
+    --color-accent-hover: var(--theme-accent-hover);
+    --color-accent-soft: var(--theme-accent-soft);
+    --color-accent-fg: var(--theme-accent-fg);
+}
+
+@layer base {
+    :root {
+        color-scheme: light;
+
+        --theme-canvas: #f7f7f9;
+        --theme-sidebar: #efeff3;
+        --theme-surface: #ffffff;
+        --theme-surface-hover: #f1f1f5;
+        --theme-edge: #e3e3ea;
+        --theme-edge-strong: #c9c9d4;
+        --theme-hover: rgb(15 15 30 / 0.05);
+        --theme-hover-strong: rgb(15 15 30 / 0.09);
+
+        --theme-fg: #17171c;
+        --theme-fg-soft: #34343f;
+        --theme-fg-muted: #5c5c6b;
+        --theme-fg-subtle: #7a7a8a;
+        --theme-fg-faint: #a3a3b1;
+
+        --theme-accent: #3456e8;
+        --theme-accent-hover: #2843c4;
+        --theme-accent-soft: rgb(52 86 232 / 0.1);
+        --theme-accent-fg: #2843c4;
+    }
+
+    .dark {
+        color-scheme: dark;
+
+        --theme-canvas: #1e1e24;
+        --theme-sidebar: #17171c;
+        --theme-surface: #26262e;
+        --theme-surface-hover: #2d2d37;
+        --theme-edge: #32323c;
+        --theme-edge-strong: #4a4a57;
+        --theme-hover: rgb(255 255 255 / 0.05);
+        --theme-hover-strong: rgb(255 255 255 / 0.1);
+
+        --theme-fg: #f3f4f6;
+        --theme-fg-soft: #d1d5db;
+        --theme-fg-muted: #9ca3af;
+        --theme-fg-subtle: #6b7280;
+        --theme-fg-faint: #4b5563;
+
+        --theme-accent: #3d63f5;
+        --theme-accent-hover: #2f52dc;
+        --theme-accent-soft: rgb(61 99 245 / 0.15);
+        --theme-accent-fg: #7f9bff;
+    }
+
+    /* Smooth the switch between themes without animating every hover state. */
+    html.theme-transition,
+    html.theme-transition *,
+    html.theme-transition *::before,
+    html.theme-transition *::after {
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease,
+            color 200ms ease !important;
+    }
+
+    details > summary {
+        list-style: none;
+    }
+
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+}
+
+@layer components {
+    .form-label {
+        @apply mb-1.5 block text-sm font-medium text-fg-soft;
+    }
+
+    .form-input {
+        @apply w-full rounded-lg border border-edge bg-canvas px-3 py-2 text-sm text-fg placeholder:text-fg-faint focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none;
+    }
+
+    .form-error {
+        @apply mt-1.5 text-sm text-red-600 dark:text-red-400;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-fg-muted hover:bg-hover hover:text-fg;
+    }
+
+    .panel {
+        @apply rounded-xl border border-edge bg-surface shadow-sm shadow-black/[0.03] dark:shadow-none;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}
